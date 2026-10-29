@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarketPlace Hub</title>
+    <meta name="description" content="All-in-one platform for trusted professionals, products, and jobs." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand-wrap">
+          <div class="logo">M</div>
+          <div>
+            <div class="brand">MarketPlace Hub</div>
+            <small>Connect • Sell • Hire</small>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#products">Products</a>
+          <a href="#jobs">Jobs</a>
+          <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-light">Login</button>
+          <button class="btn btn-primary">Sign Up</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">One platform. Many needs.</span>
+            <h1>Find professionals, buy products, and discover jobs in one place.</h1>
+            <p>
+              From trusted doctors and lawyers to artisans, local sellers, and employers,
+              discover everything you need in a single marketplace experience.
+            </p>
+
+            <div class="search-box">
+              <input id="searchInput" type="text" placeholder="Search services, products, or jobs..." />
+              <button class="btn btn-primary">Search</button>
+            </div>
+
+            <div class="hero-tags">
+              <span>Doctors</span>
+              <span>Lawyers</span>
+              <span>Artisans</span>
+              <span>Jobs</span>
+              <span>Marketplace</span>
+            </div>
+          </div>
+
+          <div class="hero-showcase">
+            <div class="mini-card card-main">
+              <div class="card-header">
+                <span class="dot green"></span>
+                <span>Live listings</span>
+              </div>
+              <h3>1,240+ trusted profiles</h3>
+              <ul>
+                <li>Professional services</li>
+                <li>Home goods and gadgets</li>
+                <li>Remote and local jobs</li>
+              </ul>
+            </div>
+
+            <div class="mini-card floating-card card-orange">
+              <div class="stat">4.9/5</div>
+              <p>Average user rating</p>
+            </div>
+
+            <div class="mini-card floating-card card-blue">
+              <div class="stat">3.8k</div>
+              <p>Products sold this month</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="container stats-grid">
+          <div>
+            <strong>15k+</strong>
+            <span>Service providers</span>
+          </div>
+          <div>
+            <strong>25k+</strong>
+            <span>Listed products</span>
+          </div>
+          <div>
+            <strong>8k+</strong>
+            <span>Open jobs</span>
+          </div>
+          <div>
+            <strong>92%</strong>
+            <span>Repeat buyers</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories container" id="services">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Browse categories</span>
+            <h2>Explore everything you need</h2>
+          </div>
+          <button class="btn btn-outline">View all</button>
+        </div>
+
+        <div class="category-grid">
+          <div class="category-box">
+            <span class="icon">🩺</span>
+            <h3>Healthcare</h3>
+            <p>Doctors, clinics, caregivers, therapists</p>
+          </div>
+          <div class="category-box">
+            <span class="icon">⚖️</span>
+            <h3>Legal</h3>
+            <p>Lawyers, consultants, notaries, mediation</p>
+          </div>
+          <div class="category-box">
+            <span class="icon">🛠️</span>
+            <h3>Artisans</h3>
+            <p>Carpenters, electricians, plumbers, builders</p>
+          </div>
+          <div class="category-box">
+            <span class="icon">🛍️</span>
+            <h3>Marketplace</h3>
+            <p>Electronics, furniture, clothes, home goods</p>
+          </div>
+          <div class="category-box">
+            <span class="icon">💼</span>
+            <h3>Jobs</h3>
+            <p>Full-time, part-time, freelance, remote roles</p>
+          </div>
+          <div class="category-box">
+            <span class="icon">🎓</span>
+            <h3>Education</h3>
+            <p>Tutors, trainers, coaches, skill programs</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="listing-section container" id="products">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Featured listings</span>
+            <h2>Popular services, products, and jobs</h2>
+          </div>
+          <div class="filter-group" id="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="service">Services</button>
+            <button class="filter-btn" data-filter="product">Products</button>
+            <button class="filter-btn" data-filter="job">Jobs</button>
+          </div>
+        </div>
+
+        <div id="listingGrid" class="listing-grid"></div>
+      </section>
+
+      <section class="cta container" id="about">
+        <div class="cta-box">
+          <div>
+            <span class="eyebrow">Why choose us</span>
+            <h2>Everything your community needs in one trusted ecosystem.</h2>
+          </div>
+          <button class="btn btn-primary">Get started</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand-wrap">
+            <div class="logo">M</div>
+            <div>
+              <div class="brand">MarketPlace Hub</div>
+            </div>
+          </div>
+          <p>Helping communities connect, shop, and grow.</p>
+        </div>
+
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li>About</li>
+            <li>Careers</li>
+            <li>Press</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li>Services</li>
+            <li>Products</li>
+            <li>Jobs</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Support</h4>
+          <ul>
+            <li>Help Center</li>
+            <li>Privacy</li>
+            <li>Terms</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
