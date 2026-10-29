@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 
-export default function SignupPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage() {
+  const [email, setEmail] = useState('admin@marketplacehub.com');
+  const [password, setPassword] = useState('admin123');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -15,22 +14,26 @@ export default function SignupPage() {
     setLoading(true);
     setMessage('');
 
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
-    });
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-    const result = await response.json();
-    setLoading(false);
+      const result = await response.json();
 
-    if (!response.ok) {
-      setMessage(result.error || 'Registration failed');
-      return;
+      if (!response.ok) {
+        setMessage(result.error || 'Invalid email or password');
+        setLoading(false);
+        return;
+      }
+
+      window.location.href = '/dashboard';
+    } catch (error) {
+      setMessage('Something went wrong. Please try again.');
+      setLoading(false);
     }
-
-    setMessage('User created successfully');
-    window.location.href = '/login';
   }
 
   return (
@@ -44,36 +47,57 @@ export default function SignupPage() {
                 <div className="brand">MarketPlace Hub</div>
               </div>
             </div>
-            <h1>Create account</h1>
-            <p>Join and start listing your services, products, or jobs.</p>
+            <h1>Welcome back</h1>
+            <p>Sign in to manage your marketplace presence.</p>
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
             <div className="field-group">
-              <label htmlFor="name">Full name</label>
-              <input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-
-            <div className="field-group">
-              <label htmlFor="email">Email address</label>
-              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
             </div>
 
             <div className="field-group">
               <label htmlFor="password">Password</label>
-              <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-row">
+              <label className="checkbox-wrap">
+                <input type="checkbox" defaultChecked />
+                <span>Remember me</span>
+              </label>
+              <Link href="#">Forgot password?</Link>
             </div>
 
             <button type="submit" className="btn btn-primary full-width" disabled={loading}>
-              {loading ? 'Creating...' : 'Create account'}
+              {loading ? 'Signing in...' : 'Login'}
             </button>
           </form>
 
           {message ? <div className="message-box">{message}</div> : null}
 
+          <div className="demo-box">
+            <strong>Demo account</strong>
+            <p>Email: admin@marketplacehub.com</p>
+            <p>Password: admin123</p>
+          </div>
+
           <div className="auth-footer">
             <span>
-              Already have an account? <Link href="/login">Sign in</Link>
+              Need an account? <Link href="/signup">Create one</Link>
             </span>
           </div>
         </div>

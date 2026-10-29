@@ -1,32 +1,41 @@
 import { NextResponse } from 'next/server';
+import { compare } from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
-import bcrypt from 'bcryptjs';
+import { setSessionCookie } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const email = String(body.email || '').trim().toLowerCase();
+    const password = String(body.password || '');
 
-    if (!body.name || !body.email || !body.password) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!email || !password) {
+      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
 
-    const existing = await prisma.user.findUnique({ where: { email: body.email } });
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (existing) {
-      return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+    if (!user || !user.passwordHash) {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
 
-    const user = await prisma.user.create({
-      data: {
-        name: body.name,
-        email: body.email,
-        passwordHash: await bcrypt.hash(body.password, 10),
-        role: 'USER'
+    const isValid = await compare(password, user.passwordHash);
+
+    if (!isValid) {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    }
+
+    setSessionCookie(user.id);
+
+    return NextResponse.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
       }
     });
-
-    return NextResponse.json({ id: user.id, name: user.name, email: user.email }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to register user' }, { status: 500 });
+    return NextResponse.json({ error: 'Unable to sign in right now' }, { status: 500 });
   }
 }

@@ -1,15 +1,22 @@
-import './globals.css';
-import type { Metadata } from 'next';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { verifySessionCookie } from './lib/auth';
 
-export const metadata: Metadata = {
-  title: 'MarketPlace Hub',
-  description: 'All-in-one marketplace for services, products, and jobs.'
-};
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+  if (pathname.startsWith('/dashboard')) {
+    const session = request.cookies.get('marketplace_session')?.value;
+    const userId = verifySessionCookie(session);
+
+    if (!userId) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/dashboard/:path*']
+};

@@ -1,145 +1,90 @@
-import { redirect } from 'next/navigation';
-import { prisma } from '@/lib/prisma';
-import { readHomeData } from '@/lib/data';
+'use client';
 
-export default async function DashboardPage() {
-  const user = { name: 'Admin User', role: 'ADMIN' };
-  const data = await readHomeData();
+import Link from 'next/link';
+import { FormEvent, useState } from 'react';
 
-  const totalListings = data.listings.length;
-  const serviceCount = data.listings.filter((item) => item.type === 'SERVICE').length;
-  const productCount = data.listings.filter((item) => item.type === 'PRODUCT').length;
-  const jobCount = data.listings.filter((item) => item.type === 'JOB').length;
+export default function SignupPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setMessage(result.error || 'Unable to create your account');
+        setLoading(false);
+        return;
+      }
+
+      setMessage('Account created successfully. Redirecting to login...');
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1000);
+    } catch (error) {
+      setMessage('Something went wrong. Please try again.');
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="dashboard-shell">
-      <aside className="sidebar">
-        <div className="sidebar-brand">
-          <div className="logo">M</div>
-          <div>
-            <div className="brand">MarketPlace Hub</div>
+    <div className="auth-body">
+      <div className="auth-shell">
+        <div className="auth-card">
+          <div className="auth-header">
+            <div className="brand-wrap">
+              <div className="logo">M</div>
+              <div>
+                <div className="brand">MarketPlace Hub</div>
+              </div>
+            </div>
+            <h1>Create your account</h1>
+            <p>Join and start publishing services, products, and jobs.</p>
+          </div>
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="field-group">
+              <label htmlFor="name">Full name</label>
+              <input id="name" value={name} onChange={(event) => setName(event.target.value)} required />
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="email">Email</label>
+              <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="password">Password</label>
+              <input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+            </div>
+
+            <button type="submit" className="btn btn-primary full-width" disabled={loading}>
+              {loading ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+
+          {message ? <div className="message-box">{message}</div> : null}
+
+          <div className="auth-footer">
+            <span>
+              Already have an account? <Link href="/login">Sign in</Link>
+            </span>
           </div>
         </div>
-
-        <nav className="sidebar-nav">
-          <a className="nav-item active" href="/dashboard">Overview</a>
-          <a className="nav-item" href="#">Services</a>
-          <a className="nav-item" href="#">Products</a>
-          <a className="nav-item" href="#">Jobs</a>
-          <a className="nav-item" href="#">Messages</a>
-          <a className="nav-item" href="#">Settings</a>
-        </nav>
-
-        <a href="/login" className="btn btn-light full-width">Logout</a>
-      </aside>
-
-      <main className="dashboard-main">
-        <header className="dashboard-header">
-          <div>
-            <span className="eyebrow">Dashboard</span>
-            <h1>Marketplace overview</h1>
-          </div>
-          <div className="user-pill">{user.name}</div>
-        </header>
-
-        <section className="stats-grid dashboard-stats">
-          <div>
-            <strong>{totalListings}</strong>
-            <span>Total listings</span>
-          </div>
-          <div>
-            <strong>{serviceCount}</strong>
-            <span>Services</span>
-          </div>
-          <div>
-            <strong>{productCount}</strong>
-            <span>Products</span>
-          </div>
-          <div>
-            <strong>{jobCount}</strong>
-            <span>Jobs</span>
-          </div>
-        </section>
-
-        <section className="dashboard-panels">
-          <div className="panel panel-form">
-            <div className="panel-header">
-              <h2>Add new listing</h2>
-            </div>
-
-            <form className="listing-form" action="/api/listings" method="POST">
-              <div className="form-grid">
-                <div className="field-group">
-                  <label>Listing type</label>
-                  <select name="type">
-                    <option value="SERVICE">Service</option>
-                    <option value="PRODUCT">Product</option>
-                    <option value="JOB">Job</option>
-                  </select>
-                </div>
-
-                <div className="field-group">
-                  <label>Title</label>
-                  <input name="title" placeholder="Example: Family Doctor" required />
-                </div>
-
-                <div className="field-group">
-                  <label>Category</label>
-                  <input name="category" placeholder="Healthcare, Legal, Electronics..." required />
-                </div>
-
-                <div className="field-group">
-                  <label>Price or salary</label>
-                  <input name="price" placeholder="$120/session or $80k" required />
-                </div>
-
-                <div className="field-group full-width">
-                  <label>Company / provider</label>
-                  <input name="company" placeholder="Northside Clinic" required />
-                </div>
-
-                <div className="field-group full-width">
-                  <label>Description</label>
-                  <textarea name="description" rows={4} placeholder="Describe the listing in detail..." required />
-                </div>
-              </div>
-
-              <button type="submit" className="btn btn-primary">Publish listing</button>
-            </form>
-          </div>
-
-          <div className="panel panel-list">
-            <div className="panel-header">
-              <h2>Recent listings</h2>
-            </div>
-
-            <div className="table-wrap">
-              <table className="listing-table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.listings.slice(0, 5).map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.title}</td>
-                      <td>{item.type}</td>
-                      <td>{item.category?.name || 'General'}</td>
-                      <td>{item.price || 'N/A'}</td>
-                      <td><span className="status-badge">Active</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </main>
+      </div>
     </div>
   );
 }
