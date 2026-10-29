@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MarketPlace Hub</title>
-    <meta name="description" content="All-in-one platform for trusted professionals, products, and jobs." />
+    <title>MarketPlace Hub | All-in-one marketplace</title>
+    <meta name="description" content="Marketplace for services, products, and jobs." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -29,8 +29,8 @@
         </nav>
 
         <div class="nav-actions">
-          <button class="btn btn-light">Login</button>
-          <button class="btn btn-primary">Sign Up</button>
+          <a id="navAuthLink" class="btn btn-light" href="login.html">Login</a>
+          <a class="btn btn-primary" href="dashboard.html">Dashboard</a>
         </div>
       </div>
     </header>
@@ -114,7 +114,7 @@
             <span class="eyebrow">Browse categories</span>
             <h2>Explore everything you need</h2>
           </div>
-          <button class="btn btn-outline">View all</button>
+          <a class="btn btn-outline" href="dashboard.html">Manage listings</a>
         </div>
 
         <div class="category-grid">
@@ -174,7 +174,7 @@
             <span class="eyebrow">Why choose us</span>
             <h2>Everything your community needs in one trusted ecosystem.</h2>
           </div>
-          <button class="btn btn-primary">Get started</button>
+          <a class="btn btn-light btn-light-cta" href="login.html">Get started</a>
         </div>
       </section>
     </main>
@@ -220,6 +220,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

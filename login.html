@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | MarketPlace Hub</title>
+    <meta name="description" content="Login to manage your marketplace account." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="auth-body">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="brand-wrap">
+            <div class="logo">M</div>
+            <div>
+              <div class="brand">MarketPlace Hub</div>
+            </div>
+          </div>
+          <h1>Welcome back</h1>
+          <p>Sign in to manage listings, services, and jobs.</p>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <div class="field-group">
+            <label for="email">Email address</label>
+            <input id="email" type="email" placeholder="admin@marketplacehub.com" required />
+          </div>
+
+          <div class="field-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="••••••••" required />
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox-wrap">
+              <input type="checkbox" checked />
+              <span>Remember me</span>
+            </label>
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary full-width">Login</button>
+        </form>
+
+        <div class="demo-box">
+          <strong>Demo account</strong>
+          <p>Email: admin@marketplacehub.com</p>
+          <p>Password: admin123</p>
+        </div>
+
+        <div class="auth-footer">
+          <span>Need an account? <a href="#">Contact admin</a></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

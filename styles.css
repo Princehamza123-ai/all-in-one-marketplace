@@ -1,567 +1,124 @@
-:root {
-  --bg: #f5f7ff;
-  --surface: #ffffff;
-  --surface-soft: #eef3ff;
-  --primary: #4f46e5;
-  --primary-dark: #2f2d8d;
-  --secondary: #12b981;
-  --text: #1f2937;
-  --text-soft: #6b7280;
-  --line: #e5e7eb;
-  --shadow: 0 15px 40px rgba(79, 70, 229, 0.12);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-.container {
-  width: min(1180px, calc(100% - 32px));
-  margin: 0 auto;
-}
-
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 84px;
-  gap: 20px;
-}
-
-.brand-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, var(--primary), #7c3aed);
-  color: white;
-  font-weight: 800;
-  box-shadow: var(--shadow);
-}
-
-.brand {
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-
-.brand-wrap small {
-  color: var(--text-soft);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 26px;
-  color: var(--text-soft);
-  font-weight: 500;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn {
-  border: none;
-  border-radius: 12px;
-  padding: 0.9rem 1.4rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary), #7c3aed);
-  color: #fff;
-  box-shadow: 0 20px 25px rgba(79, 70, 229, 0.2);
-}
-
-.btn-light {
-  background: var(--surface-soft);
-  color: var(--primary-dark);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--text);
-}
-
-.hero {
-  padding: 72px 0 48px;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 42px;
-  align-items: center;
-}
-
-.eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-.hero-copy h1 {
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
-  line-height: 1.05;
-  margin: 0 0 1rem;
-  letter-spacing: -0.05em;
-}
-
-.hero-copy p {
-  max-width: 620px;
-  color: var(--text-soft);
-  font-size: 1.08rem;
-  line-height: 1.7;
-  margin-bottom: 1.8rem;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 12px 12px 20px;
-  background: #fff;
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  max-width: 620px;
-}
-
-.search-box input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  padding: 12px 0;
-}
-
-.hero-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.hero-tags span {
-  background: rgba(79, 70, 229, 0.08);
-  color: var(--primary-dark);
-  border-radius: 999px;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.87rem;
-  font-weight: 600;
-}
-
-.hero-showcase {
-  position: relative;
-  min-height: 480px;
-}
-
-.mini-card {
-  background: var(--surface);
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: var(--shadow);
-}
-
-.card-main {
-  position: absolute;
-  inset: 30px 40px 100px 0;
-}
-
-.card-header {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.4rem 0.8rem;
-  background: rgba(18, 185, 129, 0.12);
-  color: #0d9b68;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--secondary);
-}
-
-.card-main h3 {
-  font-size: 2rem;
-  margin: 1.2rem 0 0.8rem;
-}
-
-.card-main ul {
-  padding-left: 1.3rem;
-  color: var(--text-soft);
-  line-height: 2;
-  margin: 0;
-}
-
-.floating-card {
-  position: absolute;
-  right: 0;
-  width: 170px;
-  padding: 20px;
-}
-
-.card-orange {
-  bottom: 120px;
-  background: linear-gradient(135deg, #fff7ed, #ffedd5);
-}
-
-.card-blue {
-  bottom: 0;
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
-}
-
-.stat {
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 0.4rem;
-}
-
-.floating-card p {
-  margin: 0;
-  color: var(--text-soft);
-  font-weight: 600;
-}
-
-.stats {
-  padding: 24px 0 12px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 24px;
-}
-
-.stats-grid div {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: center;
-}
-
-.stats-grid strong {
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-}
-
-.stats-grid span {
-  color: var(--text-soft);
-  font-weight: 600;
-}
-
-.categories,
-.listing-section {
-  padding: 80px 0 0;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 28px;
-}
-
-.section-header h2 {
-  margin: 0;
-  font-size: clamp(1.9rem, 3vw, 2.7rem);
-  letter-spacing: -0.04em;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.category-box {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 28px 22px;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.03);
-}
-
-.icon {
-  font-size: 2rem;
-  display: inline-block;
-  margin-bottom: 0.8rem;
-}
-
-.category-box h3 {
-  margin: 0 0 8px;
-}
-
-.category-box p {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.7;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--text-soft);
-  border-radius: 999px;
-  padding: 0.7rem 1rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.filter-btn.active {
-  background: rgba(79, 70, 229, 0.1);
-  border-color: rgba(79, 70, 229, 0.15);
-  color: var(--primary);
-}
-
-.listing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.listing-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.03);
-}
-
-.listing-thumb {
-  height: 180px;
-  padding: 18px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.thumb-service { background: linear-gradient(135deg, #4f46e5, #8b5cf6); }
-.thumb-product { background: linear-gradient(135deg, #10b981, #34d399); }
-.thumb-job { background: linear-gradient(135deg, #f59e0b, #f97316); }
-
-.tag {
-  padding: 0.4rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-}
-
-.listing-body {
-  padding: 22px;
-}
-
-.listing-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.listing-meta h3 {
-  margin: 0;
-  font-size: 1.25rem;
-}
-
-.rating {
-  color: #f59e0b;
-  font-weight: 700;
-}
-
-.listing-body p {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.7;
-}
-
-.listing-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.price {
-  font-size: 1.2rem;
-  font-weight: 800;
-}
-
-.company {
-  color: var(--text-soft);
-  font-weight: 600;
-}
-
-.cta {
-  padding: 80px 0 20px;
-}
-
-.cta-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  background: linear-gradient(135deg, var(--primary), #7c3aed);
-  color: white;
-  border-radius: 24px;
-  padding: 30px 32px;
-  box-shadow: var(--shadow);
-}
-
-.cta-box h2 {
-  margin: 0;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  letter-spacing: -0.04em;
-}
-
-.cta-box .eyebrow {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.footer {
-  padding: 38px 0 54px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 28px;
-}
-
-.footer p,
-.footer li {
-  color: var(--text-soft);
-}
-
-.footer h4 {
-  margin: 0 0 12px;
-}
-
-.footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-@media (max-width: 980px) {
-  .nav-links {
-    display: none;
-  }
-
-  .hero-grid,
-  .category-grid,
-  .listing-grid,
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-showcase {
-    min-height: 420px;
-  }
-
-  .category-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .nav-actions {
-    display: none;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .category-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .search-box {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px;
-  }
-
-  .cta-box {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | MarketPlace Hub</title>
+    <meta name="description" content="Marketplace dashboard for managing listings." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="logo">M</div>
+          <div>
+            <div class="brand">MarketPlace Hub</div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a class="nav-item active" href="dashboard.html">Overview</a>
+          <a class="nav-item" href="#">Services</a>
+          <a class="nav-item" href="#">Products</a>
+          <a class="nav-item" href="#">Jobs</a>
+          <a class="nav-item" href="#">Messages</a>
+          <a class="nav-item" href="#">Settings</a>
+        </nav>
+
+        <button id="logoutBtn" class="btn btn-light full-width">Logout</button>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <span class="eyebrow">Dashboard</span>
+            <h1>Marketplace overview</h1>
+          </div>
+          <div class="user-pill" id="userBadge">Admin</div>
+        </header>
+
+        <section class="stats-grid dashboard-stats">
+          <div>
+            <strong id="statTotal">0</strong>
+            <span>Total listings</span>
+          </div>
+          <div>
+            <strong id="statServices">0</strong>
+            <span>Services</span>
+          </div>
+          <div>
+            <strong id="statProducts">0</strong>
+            <span>Products</span>
+          </div>
+          <div>
+            <strong id="statJobs">0</strong>
+            <span>Jobs</span>
+          </div>
+        </div>
+
+        <section class="dashboard-panels">
+          <div class="panel panel-form">
+            <div class="panel-header">
+              <h2>Add new listing</h2>
+            </div>
+
+            <form id="listingForm" class="listing-form">
+              <div class="form-grid">
+                <div class="field-group">
+                  <label for="listingType">Listing type</label>
+                  <select id="listingType" required>
+                    <option value="service">Service</option>
+                    <option value="product">Product</option>
+                    <option value="job">Job</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label for="listingTitle">Title</label>
+                  <input id="listingTitle" type="text" placeholder="Example: Family Doctor" required />
+                </div>
+
+                <div class="field-group">
+                  <label for="listingCategory">Category</label>
+                  <input id="listingCategory" type="text" placeholder="Healthcare, Legal, Electronics..." required />
+                </div>
+
+                <div class="field-group">
+                  <label for="listingPrice">Price or salary</label>
+                  <input id="listingPrice" type="text" placeholder="$120/session or $80k" required />
+                </div>
+
+                <div class="field-group full-width">
+                  <label for="listingCompany">Company / provider</label>
+                  <input id="listingCompany" type="text" placeholder="Northside Clinic" required />
+                </div>
+
+                <div class="field-group full-width">
+                  <label for="listingDescription">Description</label>
+                  <textarea id="listingDescription" rows="4" placeholder="Describe the listing in detail..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Publish listing</button>
+            </form>
+          </div>
+
+          <div class="panel panel-list">
+            <div class="panel-header">
+              <h2>Recent listings</h2>
+            </div>
+
+            <div id="dashboardList" class="table-wrap"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
