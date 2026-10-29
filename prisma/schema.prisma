@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  SELLER
+  ADMIN
+}
+
+enum ListingType {
+  SERVICE
+  PRODUCT
+  JOB
+}
+
+enum ListingStatus {
+  ACTIVE
+  PENDING
+  BLOCKED
+}
+
+enum BookingStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String?
+  role         Role      @default(USER)
+  phone        String?
+  location     String?
+  bio          String?
+  avatarUrl    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  listings     Listing[]
+  products     Product[]
+  jobs         Job[]
+  reviews      Review[]
+  bookings     Booking[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+
+  listings  Listing[]
+  products  Product[]
+  jobs      Job[]
+}
+
+model Listing {
+  id          String        @id @default(cuid())
+  title       String
+  description String
+  price       String?
+  location    String?
+  type        ListingType
+  status      ListingStatus @default(ACTIVE)
+  imageUrl    String?
+  userId      String
+  categoryId  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  user        User          @relation(fields: [userId], references: [id])
+  category    Category?     @relation(fields: [categoryId], references: [id])
+  reviews     Review[]
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  price       String
+  condition   String?
+  imageUrl    String?
+  userId      String
+  categoryId  String?
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
+  category    Category? @relation(fields: [categoryId], references: [id])
+}
+
+model Job {
+  id            String    @id @default(cuid())
+  title         String
+  description   String
+  salary        String?
+  location      String?
+  employmentType String?
+  userId        String
+  categoryId    String?
+  createdAt     DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id])
+  category      Category? @relation(fields: [categoryId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  userId    String
+  listingId String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  listing   Listing? @relation(fields: [listingId], references: [id])
+}
+
+model Booking {
+  id        String        @id @default(cuid())
+  userId    String
+  listingId String?
+  status    BookingStatus @default(PENDING)
+  message   String?
+  createdAt DateTime      @default(now())
+
+  user      User          @relation(fields: [userId], references: [id])
+}
